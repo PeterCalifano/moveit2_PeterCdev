@@ -24,6 +24,9 @@ sudo apt install python3-vcstool
 # Create test workspace
 mkdir -p $moveit2_install_dir
 
+# Clone moveit2-tutorials
+vcs import --recursive < moveit2_tutorials/moveit2_tutorials.repos
+
 # Remove any other installation
 sudo apt remove ros-$ROS_DISTRO-moveit*
 
