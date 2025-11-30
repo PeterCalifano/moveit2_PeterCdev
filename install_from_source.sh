@@ -2,6 +2,28 @@
 # Script install moveit2 from source. It assumes Ubuntu 24.04 and ROS2 Jazzy Jalisco installed.
 # Reference documentation: https://moveit.picknik.ai/main/doc/tutorials/getting_started/getting_started.html
 
+set -Eeuo pipefail
+
+# Make conda environment
+ENVIRONMENT=${ENVIRONMENT:-"ros2_jazzy"}
+conda create -n $ENVIRONMENT python=3.12
+CONDA_INSTALL_DIR=${CONDA_INSTALL_DIR:-"$HOME/miniconda3"}
+
+# Check if miniconda is installed
+if [ ! -d "$CONDA_INSTALL_DIR" ]; then
+  echo "Conda install directory $CONDA_INSTALL_DIR does not exist. Please install Miniconda first."
+  exit 1
+fi
+
+source $CONDA_INSTALL_DIR/etc/profile.d/conda.sh
+conda activate $ENVIRONMENT
+
+conda activate $ENVIRONMENT
+
+# Install python packages
+pip install -U pip
+pip install catkin_pkg empy rospkg rosdistro lark packaging importlib_resources
+
 moveit2_install_dir=~/devDir/ws_ros/ws_moveit
 
 # Prepare ROS2 environment
